@@ -10,8 +10,8 @@ var g_fBucketWidth = 0.5; // = (Width of bucket in angle) / (2*pi / # of bucket)
 
 var g_fLenArm = 0.3;
 
-var g_fWaterAdd = 0.01;
-var g_fWaterSub = g_fWaterAdd * 0.9;
+var g_fWaterAdd = 10.0;
+var g_fWaterSub = g_fWaterAdd * 0.99;
 
 var g_fDT = 0.017;
 
@@ -33,12 +33,12 @@ function myCalcNextStep() {
   for ( i = 0 ; i < g_nNumBucket ; i++ ) {
     fAccel += Math.sin(g_fAngleBucketArea * i + g_fTheta) * g_arrMassBucket[ i ] * g_fLenArm;
     
-    if ( g_arrMassBucket[ i ] > 0.0 ) g_arrMassBucket[ i ] -= g_fWaterSub;
+    if ( g_arrMassBucket[ i ] > 0.0 ) g_arrMassBucket[ i ] -= g_fWaterSub * g_fDT;
     if ( g_arrMassBucket[ i ] < 0.0 ) g_arrMassBucket[ i ] = 0.0;
   }
   
   if ( nIdxTop >= 0 ) {
-    g_arrMassBucket[ nIdxTop ] += g_fWaterAdd;
+    g_arrMassBucket[ nIdxTop ] += g_fWaterAdd * g_fDT;
   }
   
   g_fTheta += g_fOmega * g_fDT;
@@ -53,7 +53,9 @@ function myRunOneFrame() {
   myCalcNextStep();
   
   //console.log(g_fTheta);
-  document.getElementById("adsf").innerHTML = g_fTheta;
+  document.getElementById("degree").innerHTML = g_fTheta;
+  document.getElementById("omega").innerHTML = g_fTheta;
+  for ( var i = 0 ; i < 8 ; i++ ) document.getElementById("w" + i).innerHTML = g_arrMassBucket[ i ];
   
   return 0;
 }
@@ -69,7 +71,16 @@ function main() {
 <body onload = "main();">
 <canvas id = "canvasMain" width = 600 height = 600>
 </canvas>
-<div id = "adsf"></div>
+<div id = "degree"></div>
+<div id = "omega"></div>
+<div id = "w0"></div>
+<div id = "w1"></div>
+<div id = "w2"></div>
+<div id = "w3"></div>
+<div id = "w4"></div>
+<div id = "w5"></div>
+<div id = "w6"></div>
+<div id = "w7"></div>
 </body>
 </html>
 
