@@ -1,0 +1,50 @@
+<html>
+<head>
+<script language = "javascript">
+var g_fTheta = 0.001, g_fOmega = 0.0;
+var g_arrMassBucket = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+var g_nNumBucket = 8;
+
+var g_fAngleBucketArea = 2 * Math.PI / g_nNumBucket;
+var g_fBucketWidth = 0.5; // = (Width of bucket in angle) / (2*pi / # of bucket)
+
+var g_fLenArm = 0.3;
+
+var g_fDT = 0.001;
+
+
+function myGetIdxWater() {
+  var nIdxCurr = Math.floor(g_fTheta / g_fAngleBucketArea + 0.5);
+  var fRatioAngle = ( g_fTheta - nIdxCurr * g_fAngleBucketArea ) / g_fAngleBucketArea;
+  
+  return ( Math.abs(fRatioAngle) * 2 <= g_fBucketWidth ? nIdxCurr : -1 );
+}
+
+
+function myCalcNextStep() {
+  var i;
+  
+  var fAccel = 0.0;
+  
+  for ( i = 0 ; i < g_nNumBucket ; i++ ) {
+    fAccel += Math.sin(g_fAngleBucketArea * i + g_fTheta) * g_arrMassBucket[ i ] * g_fLenArm;
+  }
+  
+  return 0;
+}
+
+
+function main() {
+  
+  
+  return 0;
+}
+</script>
+</head>
+<body onload = "main();">
+<canvas id = "canvasMain" width = 600 height = 600>
+</canvas>
+</body>
+</html>
+
+
