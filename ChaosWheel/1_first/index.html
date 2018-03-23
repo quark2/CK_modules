@@ -6,11 +6,11 @@ var g_arrMassBucket = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 var g_nNumBucket = 8;
 
 var g_fAngleBucketArea = 2 * Math.PI / g_nNumBucket;
-var g_fBucketWidth = 0.55; // = (Width of bucket in angle) / (2*pi / # of bucket)
+var g_fBucketWidth = 0.25; // = (Width of bucket in angle) / (2*pi / # of bucket)
 
-var g_fLenArm = 0.3;
+var g_fLenArm = 0.7;
 
-var g_fWaterAdd = 0.5;
+var g_fWaterAdd = 0.1;
 var g_fWaterSub = g_fWaterAdd * 0.13;
 var g_fWaterMax = 10.0;
 
@@ -28,11 +28,11 @@ function myGetIdxWater() {
 function myCalcNextStep() {
   var i;
   
-  var fAccel = 0.0;
+  var fTorquePre = 0.0;
   var nIdxTop = myGetIdxWater();
   
   for ( i = 0 ; i < g_nNumBucket ; i++ ) {
-    fAccel += Math.sin(g_fTheta - g_fAngleBucketArea * i) * g_arrMassBucket[ i ] * g_fLenArm;
+    fTorquePre += Math.sin(g_fTheta - g_fAngleBucketArea * i) * g_arrMassBucket[ i ];
     
     if ( g_arrMassBucket[ i ] > 0.0 ) g_arrMassBucket[ i ] -= g_fWaterSub * g_fDT;
     if ( g_arrMassBucket[ i ] < 0.0 ) g_arrMassBucket[ i ] = 0.0;
@@ -43,7 +43,7 @@ function myCalcNextStep() {
   }
   
   g_fTheta += g_fOmega * g_fDT;
-  g_fOmega += fAccel * g_fDT;
+  g_fOmega += fTorquePre * g_fLenArm * g_fDT;
   g_fTheta -= Math.floor(g_fTheta / ( 2 * Math.PI )) * 2 * Math.PI;
   
   return 0;
