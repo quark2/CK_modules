@@ -12,37 +12,37 @@ q_i = (R \cos{\theta} + r_i \cos{\theta_i}, R \sin{\theta} + r_i \sin{\theta_i})
 = \frac{1}{2} I_S \dot{\theta}^2 + \sum_i \left( \frac{1}{2} m_i (R^2 \dot{\theta}^2 + \dot{r_i}^2 + {r_i}^2 \dot{\theta_i}^2 + 2r_i R \dot{\theta} \dot{\theta_i} \cos{(\theta - \theta_i)}) - m_i g (R \sin{\theta} + r_i \sin{\theta_i}) \right) \\
 \frac{\partial \mathscr{L}}{\partial \dot{\theta}} = I_S \dot{\theta} + \sum_i \left( m_i( R^2 \dot{\theta} + r_i R \dot{\theta_i} \cos{(\theta - \theta_i)} ) \right) \\
 \frac{\partial \mathscr{L}}{\partial \dot{\theta_i}} = m_i( {r_i}^2 \dot{\theta_i} + r_i R \dot{\theta} \cos{(\theta - \theta_i)} ) \\
-\frac{d}{dt} \frac{\partial \mathscr{L}}{\partial \dot{\theta}} = \left( I_S + \sum_i m_i R^2 \right) \ddot{\theta} + \sum_i ( m_i r_i R \cos{(\theta - \theta_i)} ) \ddot{\theta_i} + \\
+\frac{d}{dt} \frac{\partial \mathscr{L}}{\partial \dot{\theta}} = \left( I_S + \sum_i m_i R^2 \right) \ddot{\theta} + \sum_i ( m_i r_i R \cos{(\theta - \theta_i)} ) \ddot{\theta_i} + \\ 
 \sum_i \left( m_i \dot{r_i} R \dot{\theta_i} \cos{(\theta - \theta_i)} - m_i r_i R \dot{\theta_i} (\dot{\theta} - \dot{\theta_i}) \sin{(\theta - \theta_i)} + \dot{m_i} ( R^2 \dot{\theta} + r_i R \dot{\theta_i} \cos{(\theta - \theta_i)} ) \right) \\
-\frac{d}{dt} \frac{\partial \mathscr{L}}{\partial \dot{\theta_i}} = ( m_i r_i R \cos{(\theta - \theta_i)} ) \ddot{\theta} + m_i {r_i}^2 \ddot{\theta_i} \\
-+ (\dot{m_i} {r_i}^2 + 2 m_i \dot{r_i} ) \dot{\theta_i} + (\dot{m_i} r_i + m_i \dot{r_i}) R \dot{\theta} \cos{(\theta - \theta_i)} - m_i r_i R \dot{\theta} (\dot{\theta} - \dot{\theta_i}) \sin{(\theta - \theta_i)} \\
+\frac{d}{dt} \frac{\partial \mathscr{L}}{\partial \dot{\theta_i}} = ( m_i r_i R \cos{(\theta - \theta_i)} ) \ddot{\theta} + m_i {r_i}^2 \ddot{\theta_i} \\ 
++ (\dot{m_i} r_i + 2 m_i \dot{r_i} ) r_i \dot{\theta_i} + (\dot{m_i} r_i + m_i \dot{r_i}) R \dot{\theta} \cos{(\theta - \theta_i)} - m_i r_i R \dot{\theta} (\dot{\theta} - \dot{\theta_i}) \sin{(\theta - \theta_i)} \\
 \frac{\partial \mathscr{L}}{\partial \theta} = \sum_i \left( -m_i r_i R \dot{\theta} \dot{\theta_i} \sin{(\theta - \theta_i)} - m_i R g \cos{\theta} \right) \\
 \frac{\partial \mathscr{L}}{\partial \theta_i} = m_i r_i R \dot{\theta} \dot{\theta_i} \sin{(\theta - \theta_i)} - m_i r_i g \cos{\theta_i} \\
-\frac{d}{dt} \frac{\partial \mathscr{L}}{\partial \dot{\theta}} - \frac{\partial \mathscr{L}}{\partial \theta} = \left( I_S + \sum_i m_i R^2 \right) \ddot{\theta} + \sum_i ( m_i r_i R \cos{(\theta - \theta_i)} ) \ddot{\theta_i} + \\
+\frac{d}{dt} \frac{\partial \mathscr{L}}{\partial \dot{\theta}} - \frac{\partial \mathscr{L}}{\partial \theta} = \left( I_S + \sum_i m_i R^2 \right) \ddot{\theta} + \sum_i ( m_i r_i R \cos{(\theta - \theta_i)} ) \ddot{\theta_i} + \\ 
 \sum_i \left( m_i \dot{r_i} R \dot{\theta_i} \cos{(\theta - \theta_i)} + m_i r_i R \dot{\theta_i}^2 \sin{(\theta - \theta_i)} + \dot{m_i} ( R^2 \dot{\theta} + r_i R \dot{\theta_i} \cos{(\theta - \theta_i)} ) + m_i R g \cos{\theta} \right) \\
-\frac{d}{dt} \frac{\partial \mathscr{L}}{\partial \dot{\theta_i}} - \frac{\partial \mathscr{L}}{\partial \theta_i} = ( m_i r_i R \cos{(\theta - \theta_i)} ) \ddot{\theta} + m_i {r_i}^2 \ddot{\theta_i} \\
-+ (\dot{m_i} {r_i}^2 + 2 m_i \dot{r_i} ) \dot{\theta_i} + (\dot{m_i} r_i + m_i \dot{r_i}) R \dot{\theta} \cos{(\theta - \theta_i)} - m_i r_i R \dot{\theta}^2 \sin{(\theta - \theta_i)} + m_i r_i g \cos{\theta_i}
+\frac{d}{dt} \frac{\partial \mathscr{L}}{\partial \dot{\theta_i}} - \frac{\partial \mathscr{L}}{\partial \theta_i} = ( m_i r_i R \cos{(\theta - \theta_i)} ) \ddot{\theta} + m_i {r_i}^2 \ddot{\theta_i} \\ 
++ (\dot{m_i} r_i + 2 m_i \dot{r_i} ) r_i \dot{\theta_i} + (\dot{m_i} r_i + m_i \dot{r_i}) R \dot{\theta} \cos{(\theta - \theta_i)} - m_i r_i R \dot{\theta}^2 \sin{(\theta - \theta_i)} + m_i r_i g \cos{\theta_i}
 
 % Part II : Matrix form; avaliable to make RK4 work
-\frac{d}{dt} \frac{\partial \mathscr{L}}{\partial \dot{\theta}} - \frac{\partial \mathscr{L}}{\partial \theta} = \left( I_S + \sum_i m_i R^2 \right) \ddot{\theta} + \sum_i ( m_i r_i R \cos{(\theta - \theta_i)} ) \ddot{\theta_i} + \\
+\frac{d}{dt} \frac{\partial \mathscr{L}}{\partial \dot{\theta}} - \frac{\partial \mathscr{L}}{\partial \theta} = \left( I_S + \sum_i m_i R^2 \right) \ddot{\theta} + \sum_i ( m_i r_i R \cos{(\theta - \theta_i)} ) \ddot{\theta_i} + \\ 
 \sum_i \left( m_i \dot{r_i} R \dot{\theta_i} \cos{(\theta - \theta_i)} + m_i r_i R \dot{\theta_i}^2 \sin{(\theta - \theta_i)} + \dot{m_i} ( R^2 \dot{\theta} + r_i R \dot{\theta_i} \cos{(\theta - \theta_i)} ) + m_i R g \cos{\theta} \right) \\
-\frac{d}{dt} \frac{\partial \mathscr{L}}{\partial \dot{\theta_i}} - \frac{\partial \mathscr{L}}{\partial \theta_i} = ( m_i r_i R \cos{(\theta - \theta_i)} ) \ddot{\theta} + m_i {r_i}^2 \ddot{\theta_i} \\
+\frac{d}{dt} \frac{\partial \mathscr{L}}{\partial \dot{\theta_i}} - \frac{\partial \mathscr{L}}{\partial \theta_i} = ( m_i r_i R \cos{(\theta - \theta_i)} ) \ddot{\theta} + m_i {r_i}^2 \ddot{\theta_i} \\ 
 + (\dot{m_i} {r_i}^2 + 2 m_i \dot{r_i} ) \dot{\theta_i} + (\dot{m_i} r_i + m_i \dot{r_i}) R \dot{\theta} \cos{(\theta - \theta_i)} - m_i r_i R \dot{\theta}^2 \sin{(\theta - \theta_i)} + m_i r_i g \cos{\theta_i} \\
 \frac{d}{dt} \frac{\partial \mathscr{L}}{\partial \dot{\Theta}} - \frac{\partial \mathscr{L}}{\partial \Theta} = A(t, \Theta) \ddot{\Theta} + \Lambda(t, \Theta, \dot{\Theta}) \\
 \textrm{where } \Theta_1 = \theta, \Theta_{i + 1} = \theta_i \;\;\; (i = 1, 2, \cdots, n), \\
-A(t, \Theta) = \left( \begin{array}{ccccc}
+A(t, \Theta) = \left( \begin{array}{ccccc} 
   I_S + \sum_i m_i R^2 & m_1 r_1 R \cos{(\theta - \theta_1)} & m_2 r_2 R \cos{(\theta - \theta_2)} & \cdots & m_n r_n R \cos{(\theta - \theta_n)} \\
   m_1 r_1 R \cos{(\theta - \theta_1)} & m_1 {r_1}^2 & 0 & \cdots & 0 \\
   m_2 r_2 R \cos{(\theta - \theta_2)} & 0 & m_2 {r_2}^2 & \cdots & 0 \\
   \vdots & \vdots & \vdots & \ddots & \vdots \\
   m_n r_n R \cos{(\theta - \theta_n)} & 0 & 0 & \cdots & m_n {r_n}^2
 \end{array} \right), \\
-\Lambda(t, \Theta, \dot{\Theta}) = \left( \begin{array}{c}
+\Lambda(t, \Theta, \dot{\Theta}) = \left( \begin{array}{c} 
   \sum_i \left( m_i R \dot{\theta_i} ( \dot{r_i} \cos{(\theta - \theta_i)} + r_i \dot{\theta_i} \sin{(\theta - \theta_i)} ) + \dot{m_i} R ( R \dot{\theta} + r_i \dot{\theta_i} \cos{(\theta - \theta_i)} ) + m_i R g \cos{\theta} \right) \\
-  (\dot{m_1} {r_1}^2 + 2 m_1 \dot{r_1} ) \dot{\theta_1} + (\dot{m_1} r_1 + m_1 \dot{r_1}) R \dot{\theta} \cos{(\theta - \theta_1)} - m_1 r_1 ( R \dot{\theta}^2 \sin{(\theta - \theta_1)} + g \cos{\theta_1} ) \\
-(\dot{m_2} {r_2}^2 + 2 m_2 \dot{r_2} ) \dot{\theta_2} + (\dot{m_2} r_2 + m_2 \dot{r_2}) R \dot{\theta} \cos{(\theta - \theta_2)} - m_2 r_2 ( R \dot{\theta}^2 \sin{(\theta - \theta_2)} + g \cos{\theta_2} ) \\
+  (\dot{m_1} r_1 + 2 m_1 \dot{r_1} ) r_1 \dot{\theta_1} + (\dot{m_1} r_1 + m_1 \dot{r_1}) R \dot{\theta} \cos{(\theta - \theta_1)} - m_1 r_1 ( R \dot{\theta}^2 \sin{(\theta - \theta_1)} + g \cos{\theta_1} ) \\
+(\dot{m_2} r_2 + 2 m_2 \dot{r_2} ) r_2 \dot{\theta_2} + (\dot{m_2} r_2 + m_2 \dot{r_2}) R \dot{\theta} \cos{(\theta - \theta_2)} - m_2 r_2 ( R \dot{\theta}^2 \sin{(\theta - \theta_2)} + g \cos{\theta_2} ) \\
   \ddots \\
-  (\dot{m_n} {r_n}^2 + 2 m_n \dot{r_n} ) \dot{\theta_n} + (\dot{m_n} r_n + m_n \dot{r_n}) R \dot{\theta} \cos{(\theta - \theta_n)} - m_n r_n ( R \dot{\theta}^2 \sin{(\theta - \theta_n)} + g \cos{\theta_n} )
+  (\dot{m_n} r_n + 2 m_n \dot{r_n} ) r_n \dot{\theta_n} + (\dot{m_n} r_n + m_n \dot{r_n}) R \dot{\theta} \cos{(\theta - \theta_n)} - m_n r_n ( R \dot{\theta}^2 \sin{(\theta - \theta_n)} + g \cos{\theta_n} )
 \end{array} \right) \\
 A(t, \Theta) = \left( \begin{array}{cc} 1 & v^T \\ 0 & 1 \end{array} \right) D \left( \begin{array}{cc} 1 & 0 \\ v & 1 \end{array} \right), \textrm{where} \\
 D = \textrm{diag} \left( I_S + \sum_i m_i R^2 \sin^2{(\theta - \theta_i)}, m_1 {r_1}^2, m_2 {r_2}^2, \cdots, m_n {r_n}^2 \right), \\
