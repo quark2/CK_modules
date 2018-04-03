@@ -23,18 +23,18 @@ var g_fAngleBucketArea = 2 * Math.PI / g_nNumBucket;
 var g_fBucketWidth = 0.60; // = (Width of bucket in angle) / (2*pi / # of bucket)
 
 var g_fLenArm = 0.5;
-var g_fMassFactor = 8.0;
+var g_fEarthFactor = 15.0;
 
-var g_fWaterAdd = 0.0;
+var g_fWaterAdd = 1.0;
 var g_fWaterSub = g_fWaterAdd * 0.07;
 var g_fWaterMax = 2.0;
 
-var g_fDT = 0.017;
+var g_fDT = 0.005;
 
 var g_fHalfWBucket = g_fLenArm * Math.sin(g_fAngleBucketArea * g_fBucketWidth / 2);
 var g_fRatioWBucket = 0.0;
 var g_fHeightBucket = 0.15;
-var g_fRatioHBucket = 0.1;
+var g_fRatioHBucket = 0.15;
 
 var g_fDimScreen = 1.2;
 var g_nSizeScreen = 600;
@@ -46,6 +46,7 @@ var g_fOriginY = 300;
 var g_fCMX = 0.0, g_fCMY = 0.0;
 var g_fITensorNull = 15.0;
 var g_fITensorZZ = g_fITensorNull;
+var g_fAccPrev = 0.0;
 
 var g_fCMXPrev = 0.0, g_fCMYPrev = 0.0;
 
@@ -120,22 +121,6 @@ function myDrawBucket() {
     
     var fOX = g_fOriginX + g_fLenArm * Math.sin(g_fTheta - g_fAngleBucketArea * i) * g_fScreenFactor;
     var fOY = g_fOriginY - g_fLenArm * Math.cos(g_fTheta - g_fAngleBucketArea * i) * g_fScreenFactor;
-    
-    /*var fX1 = fOX - g_fHalfWBucket * g_fScreenFactor;
-    var fX2 = fX1 + 2 * g_fHalfWBucket * g_fScreenFactor;
-    var fX3 = fX1 + g_fHalfWBucket * g_fScreenFactor;
-    //var fX3 = fX1 + ( 1.0 - g_fRatioWBucket ) * g_fHalfWBucket * g_fScreenFactor;
-    //var fX4 = fX2 - ( 1.0 - g_fRatioWBucket ) * g_fHalfWBucket * g_fScreenFactor;
-    
-    var fY1 = fOY - g_fRatioHBucket * g_fHeightBucket * g_fScreenFactor;
-    var fY2 = fY1 + g_fHeightBucket * g_fScreenFactor;
-    
-    var fT = g_arrMassBucket[ i ] / g_fWaterMax;
-    
-    var fXW1 = ( 1.0 - fT ) * fX3 + fT * fX1;
-    //var fXW2 = ( 1.0 - fT ) * fX4 + fT * fX2;
-    var fXW2 = ( 1.0 - fT ) * fX3 + fT * fX2;
-    var fYW1 = ( 1.0 - fT ) * fY2 + fT * fY1;*/
     
     if ( i == nIdxFill ) fHighestWater = fYW1;
     
@@ -297,11 +282,16 @@ function myCalcNextStep() {
     g_arrMassBucket[ nIdxTop ] += g_fWaterAdd * g_fDT;
   }
   
-  g_fTheta += g_fOmega * g_fDT;
-  g_fOmega += fTorque * g_fMassFactor / g_fITensorZZ * g_fDT;
+  var fAcc = fTorque * g_fEarthFactor / g_fITensorZZ;
+  var fAccHT = fAcc + g_fDT * 0.5 * ( fAcc - g_fAccPrev );
+  
+  g_fTheta += g_fOmega * g_fDT + 0.5 * g_fDT * g_fDT * fAcc;
+  g_fOmega += fAcc * g_fDT;
   g_fTheta -= Math.floor(g_fTheta / ( 2 * Math.PI )) * 2 * Math.PI;
   
-  //g_fTmpAcc = fTorque / g_fITensorZZ;
+  g_fAccPrev = fAcc;
+  
+  g_fTmpAcc = fAcc;
   
   return 0;
 }
@@ -321,7 +311,8 @@ function myInit() {
   g_arrWaterY = [];
   
   for ( i = 0 ; i < g_nNumBucket ; i++ ) {
-    g_arrMassBucket.push(( i != 4 ? 0.0 : g_fWaterMax ));
+    //g_arrMassBucket.push(( i != 4 ? 0.0 : g_fWaterMax ));
+    g_arrMassBucket.push(0.0);
     g_arrThetaBucket.push(0.0);
     g_arrOmegaBucket.push(0.0);
     
